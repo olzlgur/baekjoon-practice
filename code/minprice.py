@@ -16,7 +16,6 @@ import heapq
 from sys import maxsize
 import sys
 
-
 input = sys.stdin.readline
 
 n = int(input())
@@ -31,20 +30,19 @@ for _ in range(m):
 start, end = map(int, input().split())
 
 def dijkstra(x):
-    ql = []
-    heapq.heappush(ql, (0, x))
+    q = []
+    heapq.heappush(q, (0, x))
     visited[x] = 0
     
-    while ql:
-        w, x = heapq.heappop(ql)
+    while q:
+        w, x = heapq.heappop(q)
         if visited[x] < w :
             continue
         for tw, tx in graph[x] :
             tempw = tw + w
             if tempw < visited[tx] :
                 visited[tx] = tempw
-                heapq.heappush(ql, (tempw, tx))
+                heapq.heappush(q, (tempw, tx))
 
 dijkstra(start)
-
 print(visited[end])
