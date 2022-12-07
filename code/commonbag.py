@@ -18,15 +18,15 @@ input = sys.stdin.readline
 
 n, k= map(int, input().split())
 ol = []
-dp = [0] * (k + 1)
+dp = [0 for _ in range(k+1)]
 
 for i in range(n):
-    x, y = map(int, input().split())
-    ol.append((x, y))
+    w, v = map(int, input().split())
+    ol.append((w, v))
 
 for w, v in ol :
     for i in range(k):    
         if i + w <= k and (dp[i] + v > dp[i + w] or dp[i + w] == 0):
             dp[i + w] = dp[i] + v
 
-print(max(dp))
+print(dp[-1])
