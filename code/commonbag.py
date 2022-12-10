@@ -25,8 +25,10 @@ for i in range(n):
     ol.append((w, v))
 
 for w, v in ol :
-    for i in range(k):    
-        if i + w <= k and (dp[i] + v > dp[i + w] or dp[i + w] == 0):
-            dp[i + w] = dp[i] + v
+    for i in range(k,w-1, -1):    
+        if dp[i-w] + v > dp[i] or dp[i] == 0:
+            dp[i] = dp[i-w] + v
+    print(dp)
+print(max(dp))
 
-print(dp[-1])
+
