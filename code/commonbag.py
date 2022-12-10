@@ -28,7 +28,6 @@ for w, v in ol :
     for i in range(k,w-1, -1):    
         if dp[i-w] + v > dp[i] or dp[i] == 0:
             dp[i] = dp[i-w] + v
-    print(dp)
 print(max(dp))
 
 

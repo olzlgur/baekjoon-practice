@@ -15,11 +15,21 @@ import sys
 input = sys.stdin.readline
 
 n = int(input())
-
-ol = []
-dp = [0 for _ in range(n+1)]
-
 ol = list(map(int, input().split()))
 
-for v in ol :
+dp = []
+for i in range(n):
+    dp.append([0 for _ in range(21)])
+
+dp[0][ol[0]] = 1
+
+for i in range(1, len(ol)-1):
+    for j in range(len(dp[i-1])) :
+        if dp[i-1][j] != 0:
+            if j + ol[i] <= 20 :
+                dp[i][j + ol[i]] += dp[i-1][j] 
+            if j - ol[i] >= 0 :
+                dp[i][j - ol[i]] += dp[i-1][j]
+print(dp[i][ol[len(ol)-1]])
+
     
