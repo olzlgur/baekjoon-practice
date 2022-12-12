@@ -14,19 +14,38 @@
 n, s = map(int, input().split())
 
 li = list(map(int, input().split()))
-m = 0 
-temp = 0
-cnt = 0
+
+left = 0
+right = 0
+sum = 0
 answer = n
 
-for i in range(len(li)):
-    for j in range(i, len(li)) :
-        temp += li[j]
-        cnt += 1
-        if temp >= s :
-            if temp > m  and cnt < answer:
-                answer = cnt
-            cnt = 0
-            temp = 0
-            break
+while True :
+    if sum >= s :
+        answer = min(answer, right-left)
+        sum -= li[left]
+        left += 1
+    elif right == n :
+        break
+    elif sum < s :
+        sum += li[right]
+        right += 1
+    
 print(answer)
+
+# m = 0 
+# temp = 0
+# cnt = 0
+# answer = n
+
+# for i in range(len(li)):
+#     for j in range(i, len(li)) :
+#         temp += li[j]
+#         cnt += 1
+#         if temp >= s :
+#             if temp > m  and cnt < answer:
+#                 answer = cnt
+#             cnt = 0
+#             temp = 0
+#             break
+# print(answer)
