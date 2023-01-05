@@ -21,7 +21,6 @@
 # 1 3 3
 # 예제 출력 1 
 # 3
-
 import sys
 import heapq
 
