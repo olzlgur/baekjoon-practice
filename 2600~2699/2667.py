@@ -45,7 +45,6 @@ def dfs(x, y) :
     if x < n -1 and apart[x+1][y] ==1 and visited[x+1][y] == 0 :
         count += 1
         dfs(x+1, y)
-
     if 0 < x and apart[x-1][y] ==1 and visited[x-1][y] == 0 :
         count += 1
         dfs(x-1, y)
