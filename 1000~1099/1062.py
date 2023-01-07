@@ -9,52 +9,47 @@
 # 첫째 줄에 김지민이 K개의 글자를 가르칠 때, 학생들이 읽을 수 있는 단어 개수의 최댓값을 출력한다.
 # antic
 
-answer = 0
+## dfs 시간초과
+
+from itertools import combinations
+
 n, k = map(int, input().split())
-wa = []
-dic = {}
 
 if k < 5 :
     print(0)
+    exit()
+elif k >= 26 :
+    print(n)
+    exit()
 
-else :    
-    l = k - 5
-    for i in range(n) :
-        word = input()
-        word = word.replace("a", "")
-        word = word.replace("n", "")
-        word = word.replace("t", "")
-        word = word.replace("i", "")
-        word = word.replace("c", "")
+sl = [0 for _ in range(26)]
 
-        word = ''.join(sorted(list(set(word))))
-        if len(word) == 0 :
-            answer += 1
-        elif len(word) == l :   
-            if word not in dic :
-                dic[word] = 1
-            else :
-                dic[word] += 1
-        elif len(word) < l :
-            for key in dic.keys():
-                if word != key and word in key:
-                    dic[key] += 1
+answer = 0 
+words = [set(input().rstrip()) for _ in range(n)]
+learn = [0 for _ in range(26)]
+
+for c in ('a', 'c', 'i', 'n', 't') :
+    learn[ord(c) - ord('a')] = 1
+
+def dfs(index, cnt):
+    global answer
+    if cnt == k - 5 :
+        temp = 0
+        for word in words:
+            check = True
+            for w in word :
+                if not learn[ord(w) - ord('a')] : 
+                    check = False
                     break
-            if word not in dic :
-                dic[word] = 1
-            else :
-                dic[word] += 1
-            
-                     
-    print(dic)
+            if check :
+                temp += 1
+        answer = max(answer, temp)
+        return
+    for i in range(index,26):
+        if learn[i] != 1 :
+            learn[i] = 1
+            dfs(i, cnt+1)
+            learn[i] = 0
 
-# 2
-
-import sys
-from itertools import combinations
-input = sys.stdin.readline
-
-n,k = map(int,input().split())
-
-first_word = {'a','n','t','i','c'}
-
+dfs(0, 0)
+print(answer)
