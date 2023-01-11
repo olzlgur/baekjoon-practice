@@ -38,7 +38,6 @@ def solution():
                 power = 1
                 dfs(j, i, war[i][j])
                 dic[war[i][j]] += power*power
-
     print(dic['W'], dic['B'])
 
 def dfs(x, y, color):
