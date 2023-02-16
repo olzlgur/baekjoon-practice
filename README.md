@@ -1,4 +1,3 @@
 # baekjoon-practice
-```
-baekjoon online judge - https://www.acmicpc.net/
-```
+baekjoon online judge 
+```https://www.acmicpc.net/```
