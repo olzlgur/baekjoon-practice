@@ -21,6 +21,8 @@
 
 # N개의 랜선 영식이 K개의 랜선 길이 다름
 import sys
+import copy
+
 
 input = sys.stdin.readline
 n, k = map(int, input().split())
