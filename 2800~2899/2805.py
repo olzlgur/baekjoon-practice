@@ -27,23 +27,25 @@
 # 예제 출력 2 
 # 36
 
-n, m = map(int, input().split())
+import sys
+
+input = sys.stdin.readline
+
+n, length = map(int, input().split())
 
 wood = list(map(int, input().split()))
 
-wood.sort()
 
-start = 1
-end = wood[-1]
-
-while start <= end:
-    mid = (start + end) // 2
+start, end = 1, max(wood)
+while start <= end :
     count = 0
+    mid = (start + end) // 2
     for w in wood :
-        if w > mid :
-            count += w- mid
-    if m <= count :
-        satrt = mid + 1
+        if mid < w :
+            count += w - mid 
+    if length <= count :
+        start = mid + 1
     else :
         end = mid - 1
+
 print(end)
