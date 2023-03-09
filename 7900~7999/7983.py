@@ -41,12 +41,10 @@ for i in range(n):
     homework.append((du, deadline))
 
 homework.sort(key=lambda x : x[1])
-print(homework)
 
 cur = 0
 cur = homework[len(homework)-1][1] - homework[len(homework)-1][0]
 for i in range(len(homework)-2, -1, -1):
-    print(cur, homework[i][0], homework[i][1])
     if homework[i][1] < cur:
         cur = homework[i][1] - homework[i][0]
     else :
