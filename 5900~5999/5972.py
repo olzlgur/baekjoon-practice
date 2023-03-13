@@ -73,9 +73,3 @@ while len(heap) != 0 :
 print(costMap[n])
 
 
-# for i in range(1, m+1):
-#     for tu in cowMap[i]:
-#         heapq.heappush(heap, tu)
-#     while len(heap) != 0 :
-#         e, c = heapq.heappop(heap)
-#         if costMap[i] + c
