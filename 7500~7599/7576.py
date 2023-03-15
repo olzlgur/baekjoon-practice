@@ -59,6 +59,51 @@
 # 예제 출력 5 
 # 0
 # dfs 시간초과 
+# import sys, copy
+
+# input = sys.stdin.readline
+
+# w, h = map(int, input().split())
+
+# farm = []
+# visited = []
+# temp = []
+# temp2 = []
+# queue = []
+# for i in range(h):
+#     farm.append(list(map(int, input().split())))
+#     visited.append([0]*w)
+#     temp.append([0]*w)
+    
+# count = 0
+# while True:
+#     t = 0 
+#     for i in range(h):
+#         t += farm[i].count(0)
+#     if t == 0 :
+#         break
+#     temp2 = copy.deepcopy(farm) 
+#     visited = copy.deepcopy(temp)
+#     for i in range(h):
+#         for j in range(w):
+#             if farm[i][j] == 1 and visited[i][j] == 0:
+#                 visited[i][j] = 1
+#                 dx = [0, 0, 1, -1]
+#                 dy = [1, -1, 0, 0]
+#                 for k in range(4):
+#                     tx = j + dx[k]
+#                     ty = i + dy[k]
+#                     if 0 <= tx < w and 0 <= ty < h and visited[ty][tx] == 0 and farm[ty][tx] != -1:
+#                         visited[ty][tx] = 1
+#                         farm[ty][tx] = 1
+#     if temp2 == farm :
+#         count = -1
+#         break
+#     count += 1
+# print(count)
+
+
+# bfs 성공
 import sys, copy
 
 input = sys.stdin.readline
@@ -67,39 +112,50 @@ w, h = map(int, input().split())
 
 farm = []
 visited = []
-temp = []
-temp2 = []
+queue = []
 for i in range(h):
     farm.append(list(map(int, input().split())))
     visited.append([0]*w)
-    temp.append([0]*w)
-
-def dfs(y, x):
-    global farm, visited
-    dx = [0, 0, 1, -1]
-    dy = [1, -1, 0, 0]
-    if farm[y][x] == 1 :
-        for i in range(4):
-            tx = x + dx[i]
-            ty = y + dy[i]
-            if 0 <= tx < w and 0 <= ty < h and visited[ty][tx] == 0 and farm[ty][tx] != -1:
-               visited[ty][tx] = 1
-               farm[ty][tx] = 1
-count = 0
-while True:
-    t = 0 
-    for i in range(h):
-        t += farm[i].count(0)
-    if t == 0 :
-        break
-    temp2 = copy.deepcopy(farm) 
-    visited = copy.deepcopy(temp)
+    
+t = 0 
+for i in range(h):
+    t += farm[i].count(0)
+if t == 0 :
+    print(0)
+else :
+    count = 1
     for i in range(h):
         for j in range(w):
-            if farm[i][j] == 1 and visited[i][j] == 0:
-                dfs(i, j)
-    if temp2 == farm :
-        count = -1
-        break
-    count += 1
-print(count)
+            if farm[i][j] == 1:
+                dx = [0, 0, 1, -1]
+                dy = [1, -1, 0, 0]
+                for k in range(4):
+                    tx = j + dx[k]
+                    ty = i + dy[k]
+                    if 0 <= tx < w and 0 <= ty < h and visited[ty][tx] == 0 and farm[ty][tx] != -1:
+                        visited[ty][tx] = 1
+                        queue.append((ty, tx))
+    while True:
+        queue2 = []
+        while queue:
+            y, x = queue.pop()
+            farm[y][x] = 1
+            dx = [0, 0, 1, -1]
+            dy = [1, -1, 0, 0]
+            for k in range(4):
+                tx = x + dx[k]
+                ty = y + dy[k]
+                if 0 <= tx < w and 0 <= ty < h and farm[ty][tx] == 0 and visited[ty][tx] == 0:
+                    visited[ty][tx] = 1
+                    queue2.append((ty, tx))
+        if len(queue2) == 0 :
+            break
+        queue = copy.deepcopy(queue2)
+        count += 1
+    t = 0
+    for i in range(h):
+        t += farm[i].count(0)
+    if t != 0 :
+        print(-1)
+    else:
+        print(count)

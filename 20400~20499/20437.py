@@ -39,30 +39,45 @@
 # 3
 # 예제 출력 2  복사
 # 3 4
+# 투포인터 시간초과
+# import sys
+# input = sys.stdin.readline
+# answer = []
+# for _ in range(int(input())):
+#     word = input().rstrip()
+#     seq = int(input())
+#     answer1, answer2 = 0, 10001
+#     left = 0
+#     right = 1
+#     while left != len(word):
+#         if word[left:right].count(word[left]) == seq :
+#             answer2 = min(answer2, right-left)
+#             if word[right-1] == word[left] :
+#                 answer1 = max(answer1, right-left)
+#         elif word[left:right].count(word[left]) < seq and right != len(word):
+#             right += 1
+#         elif word[left:right].count(word[left]) > seq :
+#             right -= 1
+#         else :
+#             left += 1
+#     if answer2 == 10001 and answer1 == 0 :
+#         print(-1)
+#     else:
+#         print(answer2, answer1)
 
 import sys
 input = sys.stdin.readline
-answer = []
+
 for _ in range(int(input())):
-    word = input().rstrip()
-    seq = int(input())
-    answer1, answer2 = 0, 10001
-    left = 0
-    right = 1
-    while left != len(word):
-        if word[left:right].count(word[left]) == seq :
-            answer2 = min(answer2, right-left)
-            if word[right-1] == word[left] :
-                answer1 = max(answer1, right-left)
-                left += 1
-            right -= 1
-        elif word[left:right].count(word[left]) < seq and right != len(word):
-            right += 1
-        elif word[left:right].count(word[left]) > seq :
-            right -= 1
-        else :
-            left += 1
-    if answer2 == 10001 and answer1 == 0 :
-        print(-1)
-    else:
-        print(answer2, answer1)
+    v = list(map(lambda x: ord(x) - 97, input().strip()))
+    k, mn, mx = int(input()), len(v), -1
+    pos = [[] for _ in range(26)]
+    print(pos)
+    for idx, val in enumerate(v):
+        pos[val].append(idx)
+    for p in pos:
+        for i in range(len(p) - k + 1):
+            mn = min(mn, p[i + k - 1] - p[i] + 1)
+            mx = max(mx, p[i + k - 1] - p[i] + 1)
+
+    print(-1 if mx == -1 else f"{mn} {mx}")
