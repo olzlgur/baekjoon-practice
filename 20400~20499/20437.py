@@ -72,7 +72,6 @@ for _ in range(int(input())):
     v = list(map(lambda x: ord(x) - 97, input().strip()))
     k, mn, mx = int(input()), len(v), -1
     pos = [[] for _ in range(26)]
-    print(pos)
     for idx, val in enumerate(v):
         pos[val].append(idx)
     for p in pos:
