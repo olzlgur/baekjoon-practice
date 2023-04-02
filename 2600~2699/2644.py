@@ -43,7 +43,7 @@ for _ in range(n+1):
 
 visited = [0] * (n+1)
 n = int(input())
-answer = 0 
+answer = -1 
 for _ in range(n):
     e1, e2 = map(int, input().split())
     family[e1].append(e2)
