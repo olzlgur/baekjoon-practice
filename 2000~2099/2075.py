@@ -33,11 +33,11 @@ input = sys.stdin.readline
 
 n = int(input())
 
-number = [list(map(int, input().split())) for _ in range(n)]
 heap = []
 cnt = 0
 for i in range(n) :
-    for k in number[i]:
+    number = list(map(int, input().split()))
+    for k in number:
         if len(heap) < n :
             heapq.heappush(heap, (k))
         elif heap[0] < k :
@@ -45,7 +45,4 @@ for i in range(n) :
             heapq.heappush(heap, k)
          
 print(heapq.heappop(heap))
-answer = heapq.heappop(heap)
-
-print(answer)
 
