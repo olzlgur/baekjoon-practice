@@ -57,6 +57,9 @@ def solution():
         miro.append(list(input()))    
         visited.append([0]*w)
         if miro[i].count('J') == 1:
+            if i == 0 or i == h -1 or miro[i].index('J') == 0 or miro[i].index('J') == w-1:
+                print(1)
+                return
             checkQ.append((i, miro[i].index('J')))
         if miro[i].count('F') == 1:
             checkFireQ.append((i, miro[i].index('F')))
