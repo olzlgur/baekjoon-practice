@@ -44,9 +44,10 @@ N, K = map(int, input().split())
 NL = list(map(int, str(N)))
 
 Nlen = len(NL)
-dp = []
+heap = []
+answer = 0
 
-dp.append([NL])
+heap.append((NL, 0, 0))
 
 cnt = 0
 left = 0
@@ -56,15 +57,17 @@ if Nlen == 1:
 elif Nlen == 2 and NL[-1] == 0:
     print(-1)
 else:
-    right = Nlen-1
-    while left < right-1:   
-        dp.append([])
-        while dp[cnt]:
+    while heap:
+        TL, left, cnt = heap.pop(0)
+
+        if left < Nlen-1:
+            heap.append((TL, left+1, cnt))
+        
+        if left < Nlen-2 and cnt != K:
             mL = []
             maxNum = 0
-            TL = dp[cnt].pop(0)
 
-            for i in range(right, left, -1):
+            for i in range(Nlen-1, left, -1):
                 if TL[left] <= TL[i]:
                     if maxNum < TL[i]:
                         mL = []
@@ -72,33 +75,25 @@ else:
                         maxNum = TL[i]
                     elif maxNum == TL[i]:
                         mL.append(i)
-            
+                
             if len(mL) != 0:
                 for index in mL:
                     TL2 = copy.deepcopy(TL)
                     temp = TL2[left]
                     TL2[left] = TL2[index]
                     TL2[index] = temp
-                    if TL2 not in dp[cnt+1]:
-                        dp[cnt+1].append(copy.deepcopy(TL2))
-        
-        if dp[cnt+1] != []:
-            cnt += 1
-        left += 1
-        if cnt == K:
-            break
-        
-    answer = 0
-    if len(dp[-1]) == 0:
-        dp[-1].append(NL)
-    if cnt != K and (K-cnt) % 2 == 1:
-        for li in dp[-1]:
-            temp = li[-1]
-            li[-1] = li[-2]
-            li[-2] = temp
-            answer = max(answer, (int("".join(map(str, li)))))
-    else:
-        for li in dp[-1]:
-            answer = max(answer, (int("".join(map(str, li)))))
+                    heap.append((copy.deepcopy(TL2), left+1, cnt+1))
 
+        if cnt == K:
+            answer = max(answer, int("".join(map(str, TL))))
+        elif left == Nlen -1:
+            if (K - cnt) % 2 == 0:
+                answer = max(answer, int("".join(map(str, TL))))
+            else:
+                temp = TL[-1]
+                TL[-1] = TL[-2]
+                TL[-2] = temp
+                answer = max(answer, int("".join(map(str, TL))))
+            
     print(answer)
+
