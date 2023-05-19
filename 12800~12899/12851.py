@@ -25,6 +25,7 @@
 import sys
 from collections import deque
 
+print(1)
 input = sys.stdin.readline
 deq = deque()
 point = [100001] * 100001
