@@ -32,21 +32,29 @@ input = sys.stdin.readline
 
 n = int(input())
 answer = list(input().rstrip())
-temp = ['B']*(len(answer)-1)
+temp = [0]*(len(answer))
 cnt = 0
 
 left, right = 0,  len(answer)-1
 
-while answer != temp:
+while left <= right:
     while True:
-        print(left, right, temp, answer)
-        if answer[left] == answer[right]:
-            right -= 1
+        if left+1 >= len(answer)-1:
+            left += 1
             break
         else:
+            if answer[left] != answer[left+1]:
+                break
+            left += 1
+    print(left, right, temp)
+    while left<=right:
+        if answer[left] == answer[right]:
+            temp[right] = answer[left]
             right -= 1
-
-    for i in range(left, right+1):
-        temp[i] = answer[left]
+        else:
+            break
+    print(left, right, temp, cnt)
     left += 1
-print(temp)
+    cnt += 1
+
+print(cnt)
