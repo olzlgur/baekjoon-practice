@@ -105,5 +105,9 @@ while True:
     left += 1
     right += 1
 
-print(maxNum, cnt)    
+if maxNum == 0:
+    print("SAD")
+else:
+    print(maxNum)
+    print(cnt)
 

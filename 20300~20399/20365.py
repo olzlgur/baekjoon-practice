@@ -46,14 +46,12 @@ while left <= right:
             if answer[left] != answer[left+1]:
                 break
             left += 1
-    print(left, right, temp)
     while left<=right:
         if answer[left] == answer[right]:
             temp[right] = answer[left]
             right -= 1
         else:
             break
-    print(left, right, temp, cnt)
     left += 1
     cnt += 1
 
