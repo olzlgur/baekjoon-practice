@@ -57,10 +57,8 @@ answer = 0
 AResult = 0
 BResult = 0
 for n in primeNumber:
-    print(n)
     AResult += calRate(ARate, n)
     BResult += calRate(BRate, n)
-    print(AResult, BResult)
 
 print(AResult * (1 - BResult) + BResult * (1 - AResult) + AResult * BResult) 
 
