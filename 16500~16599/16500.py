@@ -23,7 +23,7 @@ import sys
 
 input = sys.stdin.readline
 
-answer = 0
+result = 0
 word = input().rstrip()
 
 wordList = []
@@ -32,18 +32,28 @@ n = int(input())
 for _ in range(n):
     w = input().rstrip()
     wordList.append(w)
-wordLen = len(word)    
 
-dp = [0]*(wordLen+1)
-dp[0] = 1
+dp = [0]*(101)
 
-for w in wordList:
-    for j in range(0, wordLen):
-        if word[j:j+len(w)] == w and dp[j] != 0:
-            dp[j+len(w)] = dp[j]
-            j += len(w)
-        
-print(dp[-1])
+def check(idx):
+    global result
+
+    if idx == len(word):
+        result = 1
+        return
+    if dp[idx] == 1:
+        return
+    dp[idx] = 1
+    for w in wordList:
+        if len(w) <= len(word)-idx:
+            for i in range(len(w)):
+                if word[i+idx] != w[i]:
+                    break
+            else:
+                check(idx+len(w))
+
+check(0)
+print(result)
 
 
 
