@@ -62,6 +62,18 @@ check = []
 
 answer = 0
 
+left = 0 
+right = 1
+
+while left < right:
+    if number[left] == number[right]:
+        answer += cal(right-left)   
+        left += 1
+    elif right < n-1:
+        right += 1
+    else:
+        left += 1
+
 for i in range(n):
     if visited[number[i]] == 1:
         answer += cal(len(check))
