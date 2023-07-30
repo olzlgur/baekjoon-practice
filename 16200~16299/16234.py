@@ -35,6 +35,7 @@
 import sys
 from collections import deque
 
+
 input = sys.stdin.readline
 
 N, L, R = map(int, input().split())
@@ -45,46 +46,45 @@ for _ in range(N):
 
 q = deque()
 
-
 dx = [0, 0, 1, -1]
 dy = [1, -1, 0, 0]
 
-
 answer = 0
-while True:
-    cnt = 0
 
+while True:
+    flag = 0
+    cnt = 0
     visited = []
-    for i in range(N):
+    for _ in range(N):
         visited.append([0]*N)
 
-
-    for a in range(N):
-        for b in range(N):
-            if visited[a][b] == 0:
-                cnt += 1
-                q.append((a, b))
-                check = [(a, b)]
-                total = world[a][b]
+    for idx1 in range(N):
+        for idx2 in range(N):
+            if visited[idx1][idx2] == 0:
+                checkList = []
+                sum = 0
+                visited[idx1][idx2] = 1
+                checkList.append((idx1, idx2))
+                sum += world[idx1][idx2]
+                q.append((idx1, idx2))
                 while q:
-                    y, x= q.popleft()
-                    visited[y][x] = 1
+                    y, x = q.popleft()
                     for i in range(4):
                         ty = y + dy[i]
                         tx = x + dx[i]
-
-                        if 0 <= ty < N and 0 <= tx < N and visited[ty][tx] == 0 and L <= abs(world[y][x] - world[ty][tx]) <= R:
-                            check.append((ty, tx))
-                            q.append((ty, tx))
-                            total += world[ty][tx]
-                            
-                avg = int(total / len(check))
-                for tu in check:
-                    world[tu[0]][tu[1]] = avg
-
-    if cnt == N * N:
+                        if 0 <= ty < N and 0 <= tx < N and visited[ty][tx] == 0 and L <= abs(world[y][x]- world[ty][tx]) <= R:
+                            visited[ty][tx] = 1
+                            sum += world[ty][tx]
+                            q.append((ty,tx))
+                            checkList.append((ty,tx))
+                avg = sum // len(checkList)
+                
+                if len(checkList) != 1:
+                    flag = 1
+                    for c in checkList:
+                        world[c[0]][c[1]] = avg
+    if flag == 0:
         break
-
     answer += 1
 
 print(answer)
