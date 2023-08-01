@@ -36,7 +36,7 @@ else:
         maxCnt = 0
         index = 0
         for j in range(i, -1, -1):
-            if numberList[j] < numberList[i] and max < dp[j]:
+            if numberList[j] < numberList[i] and maxCnt < dp[j]:
                 maxCnt = dp[j]
                 index = j
         dp[i] = maxCnt + 1
