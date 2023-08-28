@@ -86,7 +86,6 @@
 # 5 50
 # 예제 출력 4  복사
 # 90
-
 import sys
 
 input = sys.stdin.readline
