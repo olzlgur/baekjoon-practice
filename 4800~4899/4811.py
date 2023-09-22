@@ -45,18 +45,13 @@ while True:
         break
     
     dp = []
-    for _ in range(n+1):
-        dp.append([0]*(n+1))
+    for _ in range(31):
+        dp.append([0]*(31))
     
-    dp[n][0] = 1
+    dp[0][n] = 1
 
-    for i in range(n, -1, -1):
-        for j in range(n, -1, -1):
-            print(i, j)
-            if dp[i][j] != 0:
-                if i != 0:
-                    dp[i-1][j+1] = dp[i][j] + 1
-                if j != 0:
-                    dp[i][j-1] = dp[i][j] + 1
-    print(dp[0][0])  
+    for i in range(1, 31):
+        for j in range(1, 31):
+            dp[i][j] += (dp[i][j-1] + dp[i][j-1])
+    
     print(dp)             

@@ -91,6 +91,7 @@ while True:
 
             if 0 <= tz <L and 0 <= ty <R and 0 <= tx <C and visited[tz][ty][tx] == 0:
                 if apart[tz][ty][tx] == '.':
+                    visited[tz][ty][tx] = 1
                     q.append((cnt + 1, tz, ty, tx))
                 elif apart[tz][ty][tx] == 'E':
                     answer = cnt+1

@@ -147,6 +147,6 @@ for y in range(N):
             if 0 <= ty < N and 0 <= tx < N and classRoom[ty][tx] in favorList[favorPositon[y][x]]:
                 cnt += 1
         answer += scoreDic[cnt]
-print(classRoom)            
+
 print(answer)
 

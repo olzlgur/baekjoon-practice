@@ -67,4 +67,3 @@ for idx1 in range(1, n):
         dp[idx1] = dp[maxIndex] + 1
 
 print(n-max(dp))
-print(dp)
