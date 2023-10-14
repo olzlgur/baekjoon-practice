@@ -80,31 +80,41 @@
 # 예제 출력 3 
 # 3
 
-# dfs 시간초과
-import sys
-import copy
+import sys, copy
 
 input = sys.stdin.readline
 n, m = map(int, input().split())
 
 virusmap = []
 visited = []
-wallcount = 0
+copyVisit = []
+virusPosition = []
+
+for i in range(n):
+    visited.append([False]*m)
+
+wallcount = 0 
+
 for i in range(n):
     virusmap.append(list(map(int, input().split())))
     wallcount += virusmap[i].count(1)
-    visited.append([0]*m)
+
+for i in range(n):
+    for j in range(m):
+        if virusmap[i][j] == 2:
+            virusPosition.append((i, j))
 
 count = 0
 answer = sys.maxsize
 def makeWall(cnt):
-    global answer, count
+    global answer, count, copyVisit
     if cnt == 3:
-        visitedcopy = copy.deepcopy(visited)
-        for i in range(n):
-            for j in range(m):
-                if virusmap[i][j] == 2 and visitedcopy[i][j] == 0 :
-                    dfs(i, j, visitedcopy)
+        copyVisit = copy.deepcopy(visited)        
+        
+        for tu in virusPosition:
+            if copyVisit[tu[0]][tu[1]] == False:
+                dfs(tu[0], tu[1])
+                
         answer = min(answer, count)
         count = 0
         return
@@ -116,9 +126,10 @@ def makeWall(cnt):
                 makeWall(cnt+1)
                 virusmap[i][j] = 0
 
-def dfs(y, x, visitcopy):
-    global count
-    visitcopy[y][x] = 1
+def dfs(y, x):
+    global count, copyVisit
+    
+    copyVisit[y][x] = True
     count += 1
     dx = [0, 0, 1, -1]
     dy = [1, -1, 0, 0]
@@ -126,8 +137,9 @@ def dfs(y, x, visitcopy):
     for i in range(4):
         ty = y + dy[i]
         tx = x + dx[i]
-        if 0 <= ty < n and 0 <= tx < m and visitcopy[ty][tx] == 0 and virusmap[ty][tx] != 1 :
-            dfs(ty, tx, visitcopy)        
+        if 0 <= ty < n and 0 <= tx < m and copyVisit[ty][tx] == False and virusmap[ty][tx] == 0:
+            dfs(ty, tx)        
 
 makeWall(0)
 print((n*m) - answer - wallcount - 3)
+
